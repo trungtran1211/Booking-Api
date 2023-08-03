@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserRole extends Model
 {
     protected $table = 'UserRoles';
-    protected $primaryKey = 'user_role_id';
+    protected $primaryKey = 'id';
     
     protected $fillable = ['user_id', 'role_id'];
 }
