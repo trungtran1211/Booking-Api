@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Roles extends Model
 {
-    protected $primaryKey = 'role_id';
+    protected $primaryKey = 'id';
     protected $fillable = [
         'name'
     ];
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'UserRoles', 'role_id', 'id');
+        return $this->belongsToMany(User::class);
     }
 }
