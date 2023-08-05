@@ -10,5 +10,5 @@ class UserRole extends Model
     protected $table = 'user_roles';
     protected $primaryKey = 'id';
     
-    protected $fillable = ['user_id', 'role_id'];
+    protected $fillable = ['user_id', 'roles_id'];
 }

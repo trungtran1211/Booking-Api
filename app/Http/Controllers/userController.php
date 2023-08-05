@@ -35,7 +35,7 @@ class userController extends Controller
         }
     
         $user = User::create($userData);
-    
+        
         $user->roles()->attach($role);
     
         return response()->json(['message' => 'User created successfully', 'user' => $user], 200);
