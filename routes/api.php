@@ -15,6 +15,16 @@ use App\Http\Controllers\userController;
 |
 */
 
-Route::post('/register', [userController::class, 'register']);
-// Route::post('/login', [AuthController::class, 'login']);
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+
+], function () {
+    Route::post('/login', [userController::class, 'login']);
+    Route::post('/register', [userController::class, 'register']);
+    // Route::post('/logout', [userController::class, 'logout']);
+    Route::post('/refresh', [userController::class, 'refresh']);
+    Route::get('/user-profile', [userController::class, 'userProfile']);
+    // Route::post('/change-pass', [userController::class, 'changePassWord']);    
+});
 
