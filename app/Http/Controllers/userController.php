@@ -82,4 +82,32 @@ class userController extends Controller
             'user' => auth()->user()
         ]);
     }
+
+
+    public function logout() {
+        auth()->logout();
+
+        return response()->json(['message' => 'User successfully signed out']);
+    }
+
+    public function changePassWord(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'old_password' => 'required|string|min:6',
+            'new_password' => 'required|string|confirmed|min:6',
+        ]);
+
+        if($validator->fails()){
+            return response()->json($validator->errors()->toJson(), 400);
+        }
+        $userId = auth()->user()->id;
+
+        $user = User::where('id', $userId)->update(
+                    ['password' => Hash::make($request->new_password)]
+                );
+
+        return response()->json([
+            'message' => 'User successfully changed password',
+            'user' => $user,
+        ], 201);
+    }
 }

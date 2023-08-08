@@ -22,9 +22,18 @@ Route::group([
 ], function () {
     Route::post('/login', [userController::class, 'login']);
     Route::post('/register', [userController::class, 'register']);
-    // Route::post('/logout', [userController::class, 'logout']);
+    Route::post('/logout', [userController::class, 'logout']);
     Route::post('/refresh', [userController::class, 'refresh']);
     Route::get('/user-profile', [userController::class, 'userProfile']);
-    // Route::post('/change-pass', [userController::class, 'changePassWord']);    
+    Route::post('/change-pass', [userController::class, 'changePassWord']);    
 });
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'admin'
+
+], function () {
+     
+});
+
 
