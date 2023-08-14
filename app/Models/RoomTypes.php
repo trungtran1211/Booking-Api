@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class RoomTypes extends Model
 {
-    use HasFactory;
+    protected $table = 'room_types';
+    protected $primaryKey = 'id';
+    
+    protected $fillable = ['name'];
 }

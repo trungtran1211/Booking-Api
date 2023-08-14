@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Places extends Model
 {
-    use HasFactory;
+    protected $table = 'places';
+    protected $primaryKey = 'id';
+    
+    protected $fillable = ['name', 'address', 'description'];
 }

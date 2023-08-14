@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userController;
+use App\Http\Controllers\RoomTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,11 +30,11 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => 'api',
     'prefix' => 'admin'
-
 ], function () {
-     
+    Route::post('/room-types', [RoomTypeController::class, 'addRoomTypes']);
+    Route::post('/edit-roomtypes/{id}', [RoomTypeController::class, 'editRoomTypes']);
+    Route::get('/delete-roomtypes/{id}', [RoomTypeController::class, 'deleteRoomTypes']);
 });
 
 
