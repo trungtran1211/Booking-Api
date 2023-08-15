@@ -17,6 +17,7 @@ class CreateRoomsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('place_id');
             $table->unsignedBigInteger('room_type_id');
+            $table->string('address');
             $table->integer('capacity');
             $table->boolean('is_available')->default(true);
             $table->timestamps();

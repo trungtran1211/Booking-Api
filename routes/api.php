@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\RoomTypeController;
+use App\Http\Controllers\PlacesController;
+use App\Http\Controllers\RoomController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,9 +34,18 @@ Route::group([
 Route::group([
     'prefix' => 'admin'
 ], function () {
+    // Room Types
     Route::post('/room-types', [RoomTypeController::class, 'addRoomTypes']);
-    Route::post('/edit-roomtypes/{id}', [RoomTypeController::class, 'editRoomTypes']);
+    Route::get('/edit-roomtypes/{id}', [RoomTypeController::class, 'getEditRoomTypes']);
+    Route::post('/edit-roomtypes/{id}', [RoomTypeController::class, 'postEditRoomTypes']);
     Route::get('/delete-roomtypes/{id}', [RoomTypeController::class, 'deleteRoomTypes']);
+    // Places
+    Route::post('/add-places', [PlacesController::class, 'addPlaces']);
+    Route::get('/edit-places/{id}', [PlacesController::class, 'getEditPlaces']);
+    Route::post('/edit-places/{id}', [PlacesController::class, 'postEditPlaces']);
+    Route::get('/delete-places/{id}', [PlacesController::class, 'deletePlaces']);
+    // Rooms
+    Route::get('/add-rooms', [RoomController::class, 'getAddRooms']);
 });
 
 

@@ -22,14 +22,15 @@ class RoomTypeController extends Controller
         return response()->json(['message' => 'add room type success', 'data' => $roomType], 200);
     }
 
-    public function editRoomTypes(Request $request, $id) {
+    public function getEditRoomTypes($id) {
+        $data = RoomTypes::select('*')->where('id', $id)->first();
+        return response()->json(['data' => $data], 200);
+    }
+
+    public function postEditRoomTypes(Request $request, $id) {
         $roomType = new RoomTypes();
         $arr['name'] = $request->name;
         
-        if (RoomTypes::where('name', $arr['name'])->exists()) {
-            return response()->json(['message' => 'Name already exists'], 400);
-        }
-
         $roomType::where('id', $id)->update($arr);
         return response()->json(['message' => 'edit room type success'], 200);
     }

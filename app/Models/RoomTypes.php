@@ -11,4 +11,9 @@ class RoomTypes extends Model
     protected $primaryKey = 'id';
     
     protected $fillable = ['name'];
+
+    public function rooms()
+    {
+        return $this->hasMany(Rooms::class);
+    }
 }

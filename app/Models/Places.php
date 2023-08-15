@@ -10,5 +10,10 @@ class Places extends Model
     protected $table = 'places';
     protected $primaryKey = 'id';
     
-    protected $fillable = ['name', 'address', 'description'];
+    protected $fillable = ['name', 'description'];
+
+    public function rooms()
+    {
+        return $this->hasMany(Rooms::class);
+    }
 }
