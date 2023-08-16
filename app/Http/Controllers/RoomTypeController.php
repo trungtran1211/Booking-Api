@@ -6,6 +6,12 @@ use App\Models\RoomTypes;
 
 class RoomTypeController extends Controller
 {
+
+    public function getRoomTypes() {
+        $data = RoomTypes::all();
+        return response()->json(compact('data'), 200);
+    }
+
     public function addRoomTypes(Request $request) {
         $data =  $request->validate([
             'name' => 'required',

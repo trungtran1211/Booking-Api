@@ -7,6 +7,11 @@ use App\Models\Places;
 
 class PlacesController extends Controller
 {
+    public function getPlaces() {
+        $data = Places::all();
+        return response()->json(compact('data'), 200);
+    }
+
     public function addPlaces(Request $request) {
         $data = $request->validate([
             'name' => 'required',

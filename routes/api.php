@@ -35,17 +35,23 @@ Route::group([
     'prefix' => 'admin'
 ], function () {
     // Room Types
-    Route::post('/room-types', [RoomTypeController::class, 'addRoomTypes']);
+    Route::get('/roomtypes', [RoomTypeController::class, 'getRoomTypes']);
+    Route::post('/add-roomtypes', [RoomTypeController::class, 'addRoomTypes']);
     Route::get('/edit-roomtypes/{id}', [RoomTypeController::class, 'getEditRoomTypes']);
     Route::post('/edit-roomtypes/{id}', [RoomTypeController::class, 'postEditRoomTypes']);
     Route::get('/delete-roomtypes/{id}', [RoomTypeController::class, 'deleteRoomTypes']);
     // Places
+    Route::get('/places', [PlacesController::class, 'getPlaces']);
     Route::post('/add-places', [PlacesController::class, 'addPlaces']);
     Route::get('/edit-places/{id}', [PlacesController::class, 'getEditPlaces']);
     Route::post('/edit-places/{id}', [PlacesController::class, 'postEditPlaces']);
     Route::get('/delete-places/{id}', [PlacesController::class, 'deletePlaces']);
     // Rooms
+    Route::get('/rooms', [RoomController::class, 'getRooms']);
     Route::get('/add-rooms', [RoomController::class, 'getAddRooms']);
+    Route::post('/add-rooms', [RoomController::class, 'postAddRooms']);
+    Route::post('/edit-rooms/{id}', [RoomController::class, 'postEditRooms']);
+    Route::get('/delete-rooms/{id}', [RoomController::class, 'deleteRooms']);
 });
 
 
