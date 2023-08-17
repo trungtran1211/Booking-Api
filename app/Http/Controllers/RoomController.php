@@ -24,6 +24,8 @@ class RoomController extends Controller
         $data =  $request->validate([
             'address' => 'required',
             'capacity' => 'required',
+            'room_number' => 'required',
+            'description' => 'required',
         ]);
 
         $rooms = new Rooms();
@@ -31,6 +33,8 @@ class RoomController extends Controller
         $rooms->room_type_id = $request->room_type_id;
         $rooms->address = $data['address'];
         $rooms->capacity = $data['capacity'];
+        $rooms->room_number = $data['room_number'];
+        $rooms->description = $data['description'];
         $rooms-> save();
 
         return response()->json(['message' => 'add room type success', 'data' => $rooms], 200);

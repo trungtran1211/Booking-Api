@@ -7,5 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bookings extends Model
 {
-    use HasFactory;
+    public function rooms()
+    {
+        return $this->hasMany(Rooms::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(Uses::class);
+    }
 }

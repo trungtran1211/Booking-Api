@@ -11,7 +11,7 @@ class Rooms extends Model
     protected $table = 'rooms';
     protected $primaryKey = 'id';
     
-    protected $fillable = ['address', 'capacity', 'is_available'];
+    protected $fillable = ['address', 'capacity', 'is_available', 'room_number', 'description', 'price_per_night'];
 
     public function places() {
         return $this->belongsTo(Places::class);
@@ -19,5 +19,14 @@ class Rooms extends Model
 
     public function roomtypes(){
         return $this->belongsTo(RoomTypes::class);
+    }
+
+    public function bookings(){
+        return $this->belongsTo(Bookings::class);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(Image::class);
     }
 }
