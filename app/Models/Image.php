@@ -7,8 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
+
+    protected $table = 'images';
+    protected $primaryKey = 'id';
+    
+    protected $fillable = ['path'];
     public function room()
     {
         return $this->belongsTo(Room::class);
     }
+
 }
