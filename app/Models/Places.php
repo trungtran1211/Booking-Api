@@ -10,7 +10,7 @@ class Places extends Model
     protected $table = 'places';
     protected $primaryKey = 'id';
     
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'description', 'map'];
 
     public function rooms()
     {

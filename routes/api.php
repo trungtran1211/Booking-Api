@@ -52,7 +52,6 @@ Route::group([
     Route::post('/add-rooms', [RoomController::class, 'postAddRooms']);
     Route::post('/edit-rooms/{id}', [RoomController::class, 'postEditRooms']);
     Route::get('/delete-rooms/{id}', [RoomController::class, 'deleteRooms']);
-    //Images
     
 });
 

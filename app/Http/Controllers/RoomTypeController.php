@@ -9,7 +9,7 @@ class RoomTypeController extends Controller
 
     public function getRoomTypes() {
         $data = RoomTypes::all();
-        return response()->json(compact('data'), 200);
+        return response()->json($data, 200);
     }
 
     public function addRoomTypes(Request $request) {

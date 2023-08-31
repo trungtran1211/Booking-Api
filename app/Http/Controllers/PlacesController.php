@@ -16,6 +16,7 @@ class PlacesController extends Controller
         $data = $request->validate([
             'name' => 'required',
             'description' => 'required',
+            'map' => 'required',
         ]);
 
         if (Places::where('name', $data['name'])->exists()) {
@@ -25,6 +26,7 @@ class PlacesController extends Controller
         $places = new Places();
         $places->name = $data['name'];
         $places->description = $data['description'];
+        $places->map = $data['map'];
         $places->save();
         return response()->json(['message' => 'Places has been added successfully', 'data' => $data], 200);
     }
@@ -39,7 +41,7 @@ class PlacesController extends Controller
         $places = new Places();
         $arr['name'] = $request->name;
         $arr['description'] = $request->description;
-
+        $arr['map'] = $request->map;
         $places::where('id', $id)->update($arr);
         return response()->json(['message' => 'edit places success'], 200);
     }
