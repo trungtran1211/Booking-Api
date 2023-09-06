@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use App\Models\Places;
 use App\Models\RoomTypes;
 use App\Models\Rooms;
 use App\Models\Image;
-use App\Http\Controllers\ImagesController;
+
 
 class RoomController extends Controller
 {
@@ -23,48 +24,39 @@ class RoomController extends Controller
     }
 
     public function postAddRooms(Request $request) {
-        $data =  $request->validate([
-            'address' => 'required',
-            'capacity' => 'required',
-            'room_number' => 'required',
-            'description' => 'required',
-            'cover_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'images' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
-        ]);
-        if(Rooms::where('room_number', $data['room_number'])->exists()){
+
+        if(Rooms::where('room_number', $request->room_number)->exists()){
             return response()->json(['message' => 'add room error'], 401);
         }
-
-        $uploadedImage = $request->file('cover_image');
+        
+        $uploadedImage = $request->file("cover_image");
         $imageName = time() . '_' . $uploadedImage->getClientOriginalName();
         $imagePath = $uploadedImage->storeAs('images', $imageName, 'public');
         $uploadedImage->move(public_path('/images'), $imagePath);
-
         $rooms = new Rooms();
         $rooms->place_id = $request->place_id;
         $rooms->room_type_id = $request->room_type_id;
-        $rooms->address = $data['address'];
-        $rooms->capacity = $data['capacity'];
-        $rooms->room_number = $data['room_number'];
-        $rooms->description = $data['description'];
+        $rooms->address = $request->address;
+        $rooms->capacity = $request->capacity;
+        $rooms->room_number = $request->room_number;
+        $rooms->description = $request->description;
         $rooms->cover_image = $imagePath;
         $rooms-> save();
         $roomId = $rooms->id;
-        
-        $images = $request->file('images');
-        $imageName='';
-        foreach ($images as $imageFile) {
-            $new_name = time() . '_' . $imageFile->getClientOriginalName();
-            $imageFile->move(public_path('/images'), $imagePath);
-            $imageName = $imageName.$new_name.",";
+
+        if($request->hasFile("images")){
+            $files = $request->file("images");
+            foreach($files as $file){
+                $imagesName1=time().'_'.$file->getClientOriginalName();
+                $upload = $file->storeAs('images', $imagesName1);
+                $file->move(public_path("/images"),$upload);
+                $image = new Image();
+                $image->room_id = $roomId; 
+                $image->path = $upload;
+                $image->save();
+            }
         }
-        dd($imageName);
-        $image = new Image();
-        $image->room_id = $roomId;
-        $image->path = $imageName;
-        $image->save();
-        // $imagesController->addImageToRoom($roomId, $request);
-        return response()->json(['message' => 'add room success', 'data' => $rooms, $image], 200);
+        return response()->json(['message' => 'add room success', 'data' => $rooms], 200);
     }
 
     public function deleteRooms($id) {
