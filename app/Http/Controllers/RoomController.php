@@ -14,7 +14,7 @@ class RoomController extends Controller
 {
     public function getRooms() {
         $data = Rooms::all();
-        return response()->json(compact('data'), 200);
+        return response()->json($data, 200);
     }
 
     public function getAddRooms() {

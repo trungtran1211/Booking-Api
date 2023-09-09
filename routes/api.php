@@ -50,9 +50,9 @@ Route::group([
     Route::get('/rooms', [RoomController::class, 'getRooms']);
     Route::get('/add-rooms', [RoomController::class, 'getAddRooms']);
     Route::post('/add-rooms', [RoomController::class, 'postAddRooms']);
+    Route::get('/edit-rooms/{id}', [RoomController::class, 'getEditRooms']);
     Route::post('/edit-rooms/{id}', [RoomController::class, 'postEditRooms']);
     Route::get('/delete-rooms/{id}', [RoomController::class, 'deleteRooms']);
-    
 });
 
 
