@@ -34,20 +34,19 @@ class RoomController extends Controller
         $rooms->capacity = $request->capacity;
         $rooms->room_number = $request->room_number;
         $rooms->description = $request->description;
-        $rooms->cover_image = $request->file("cover_image")->store('images');
+        $rooms->cover_image = $request->cover_image; //
         $rooms-> save();
         $roomId = $rooms->id;
 
-        if($request->hasFile("images")){
-            $files = $request->file("images");
-            foreach($files as $file){
-                $image = new Image();
-                $image->room_id = $roomId; 
-                $image->path = $file->store('images');
-                $image->save();
-            }
+        $files = $request->images;
+        foreach($files as $file){
+            $image = new Image();
+            $image->room_id = $roomId; 
+            $image->path = $file;
+            $image->save();
         }
-        return response()->json(['message' => 'add room success', 'data' => $rooms], 200);
+       
+        return response()->json(['message' => 'add room success', 'data' => $rooms , 'images' => $image], 200);
     }
 
     public function deleteRooms($id) {
