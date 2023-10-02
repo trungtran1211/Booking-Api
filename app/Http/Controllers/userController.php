@@ -59,7 +59,6 @@ class userController extends Controller
         }
 
         if (!$token = JWTAuth::attempt($validator->validated())) {
-            
             return response()->json(['error' => 'Unauthorized'], 401);
         }
         return $this->createNewToken($token);
@@ -101,7 +100,7 @@ class userController extends Controller
         $userId = auth()->user()->id;
 
         $user = User::where('id', $userId)->update(
-                    ['password' => Hash::make($request->new_password)]
+                    ['password' => bcrypt($request->new_password)]
                 );
 
         return response()->json([

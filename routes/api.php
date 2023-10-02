@@ -6,6 +6,7 @@ use App\Http\Controllers\userController;
 use App\Http\Controllers\RoomTypeController;
 use App\Http\Controllers\PlacesController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\BookingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,12 +24,12 @@ Route::group([
     'prefix' => 'auth'
 
 ], function () {
-    Route::post('/login', [userController::class, 'login']);
+    Route::post('/login', [userController::class, 'login'])->name('login');
     Route::post('/register', [userController::class, 'register']);
     Route::post('/logout', [userController::class, 'logout']);
     Route::post('/refresh', [userController::class, 'refresh']);
     Route::get('/user-profile', [userController::class, 'userProfile']);
-    Route::post('/change-pass', [userController::class, 'changePassWord']);    
+    Route::post('/change-pass/{id}', [userController::class, 'changePassWord']);    
 });
 
 Route::group([
@@ -55,4 +56,4 @@ Route::group([
     Route::get('/delete-rooms/{id}', [RoomController::class, 'deleteRooms']);
 });
 
-
+Route::get('booking', [BookingController::class, 'testtt']);
